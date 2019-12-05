@@ -17,10 +17,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "debug": "^4.1.1"
-  },
   "devDependencies": {
+    "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.4",
     "@babel/plugin-proposal-decorators": "^7.7.4",
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
@@ -31,7 +29,6 @@
     "@types/jest": "^24.0.23",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
-    "babel-cli": "^6.26.0",
     "babel-loader": "^8.0.6",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
