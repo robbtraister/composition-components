@@ -1,27 +1,24 @@
 {
-  "name": "standard-project",
+  "name": "standard-package",
   "version": "0.0.0",
   "description": "",
-  "main": "./build/main",
+  "main": "./dist",
   "scripts": {
-    "build": "npm run clean && webpack",
-    "clean": "rm -rf ./build/*",
-    "dev": "node --inspect=0.0.0.0:9229 -r ts-node/register ./src",
+    "build": "npm run clean && babel src/ --out-dir dist/ --extensions=.cjs,.js,.mjs,.ts",
+    "clean": "rm -rf ./dist/*",
     "lint:ts": "eslint --ext .cjs,.js,.mjs,.ts .",
     "lint": "npm run lint:ts -- --fix",
-    "prod": "NODE_ENV=production npm run build && NODE_ENV=production npm run start",
-    "start": "node .",
     "test": "npm audit && tsc --noEmit && npm run lint:ts && jest",
+    "prepublishOnly": "npm run test && npm run build",
     "preversion": "npm run test",
     "postversion": "git push && git push --tags",
-    "watch": "npm run build -- --watch"
+    "watch": "npm run test -- --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "debug": "^4.1.1",
-    "source-map-support": "^0.5.16"
+    "debug": "^4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
@@ -34,6 +31,7 @@
     "@types/jest": "^24.0.23",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
+    "babel-cli": "^6.26.0",
     "babel-loader": "^8.0.6",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
@@ -49,10 +47,11 @@
     "prettier": "^1.19.1",
     "prettier-config-standard": "^1.0.1",
     "ts-node": "^8.5.4",
-    "typescript": "^3.7.2",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "typescript": "^3.7.3"
   },
+  "files": [
+    "dist/"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

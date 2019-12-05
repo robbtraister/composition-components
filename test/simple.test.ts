@@ -2,6 +2,8 @@
 
 /* global expect, test */
 
-test('simple test', () => {
-  expect(1 + 2).toBe(3)
+const f = require('../src')
+
+test('simple test', async () => {
+  expect(await f()).toBe(3)
 })
