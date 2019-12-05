@@ -4,7 +4,7 @@
   "description": "",
   "main": "./dist",
   "scripts": {
-    "build": "npm run clean && babel src/ --out-dir dist/ --extensions=.cjs,.js,.mjs,.ts",
+    "build": "npm run clean && babel src/ --out-dir dist/ --extensions=.cjs,.js,.mjs,.ts --source-maps",
     "clean": "rm -rf ./dist/*",
     "lint:ts": "eslint --ext .cjs,.js,.mjs,.ts .",
     "lint": "npm run lint:ts -- --fix",
