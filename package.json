@@ -1,8 +1,16 @@
 {
-  "name": "standard-components",
+  "name": "@composition/components",
   "version": "0.0.0",
   "description": "",
   "main": "./dist",
+  "exports": {
+    "./components": "./dist/components",
+    "./components/app": "./dist/components/app",
+    "./components/content": "./dist/components/content",
+    "./contexts": "./dist/contexts",
+    "./contexts/app": "./dist/contexts/app",
+    "./contexts/component": "./dist/contexts/component"
+  },
   "scripts": {
     "build": "npm run clean && babel src/ --out-dir dist/ --extensions=.cjs,.cjsx,.js,.jsx,.mjs,.mjsx,.ts,.tsx --ignore=\"**/*.d.ts\" --source-maps",
     "clean": "rm -rf ./dist/*",
