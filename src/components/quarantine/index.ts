@@ -1,21 +1,10 @@
 'use strict'
 
-import { clientQuarantine } from './client'
-import { serverQuarantine } from './server'
+import { ClientQuarantine } from './client'
+import { ServerQuarantine } from './server'
 
-const whichQuarantine =
-  typeof process === 'undefined' ? clientQuarantine : serverQuarantine
+import { isClient } from '../../utils'
 
-function withQuarantine(Component) {
-  const QuarantinedComponent = whichQuarantine(Component)
+export const Quarantine = isClient ? ClientQuarantine : ServerQuarantine
 
-  for (const key in Component) {
-    QuarantinedComponent[key] = Component[key]
-  }
-  QuarantinedComponent.displayName = `Quarantine(${Component.displayName ||
-    Component.name})`
-
-  return QuarantinedComponent
-}
-
-export default withQuarantine
+export default Quarantine

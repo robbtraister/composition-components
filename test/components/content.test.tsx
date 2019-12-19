@@ -4,9 +4,9 @@
 
 import PropTypes from 'prop-types'
 import React from 'react'
-import { render } from '@testing-library/react'
+import { act, render } from '@testing-library/react'
 
-import App from '../../src/components/app'
+import Composition from '../../src/components/composition'
 import { Content, useContent } from '../../src/components/content'
 
 function Display({ content }) {
@@ -15,6 +15,10 @@ function Display({ content }) {
 
 Display.propTypes = {
   content: PropTypes.string
+}
+
+function ContentChildren(props) {
+  return <Content {...props}>{Display}</Content>
 }
 
 function ContentComponent(props) {
@@ -30,12 +34,14 @@ function ContentRender(props) {
   return <Content {...props} render={Display} />
 }
 
-function getComponent(type) {
+function getComponent({ type }) {
   switch (type) {
-    case 'content-hook':
-      return ContentHook
+    case 'content-children':
+      return ContentChildren
     case 'content-component':
       return ContentComponent
+    case 'content-hook':
+      return ContentHook
     case 'content-render':
       return ContentRender
   }
@@ -45,7 +51,7 @@ async function getContent({ source, query }) {
   return `${source}: ${query.data}`
 }
 
-const node = {
+const tree = {
   id: 'abc',
   props: {
     source: 'source',
@@ -54,21 +60,26 @@ const node = {
 }
 
 async function testContentComponent(componentType) {
-  const promises = []
+  const cache = {}
   const result = render(
-    <App
+    <Composition
       getComponent={getComponent}
       getContent={getContent}
-      node={{ ...node, type: componentType }}
-      promises={promises}
+      tree={{ ...tree, type: componentType }}
+      cache={cache}
     />
   )
 
-  await Promise.all(promises)
+  await act(() => Promise.all(Object.values(cache)))
   return result
 }
 
 describe('Content', () => {
+  test('Content Children', async () => {
+    const { asFragment } = await testContentComponent('content-children')
+    expect(asFragment()).toMatchSnapshot()
+  })
+
   test('Content Component', async () => {
     const { asFragment } = await testContentComponent('content-component')
     expect(asFragment()).toMatchSnapshot()

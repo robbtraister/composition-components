@@ -1,11 +1,10 @@
 'use strict'
 
-import PropTypes from 'prop-types'
 import React from 'react'
 
 import { useComponentContext } from '../../contexts/component'
 
-function Error(props) {
+function Error(props: { error }) {
   const { id, type } = useComponentContext()
   const { error = {} } = props
   return (
@@ -15,10 +14,6 @@ function Error(props) {
       data-error-message={error.message || error}
     />
   )
-}
-
-Error.propTypes = {
-  error: PropTypes.object.isRequired
 }
 
 export default Error

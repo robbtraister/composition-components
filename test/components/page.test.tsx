@@ -3,10 +3,13 @@
 /* global expect, test */
 
 import React from 'react'
-import { render } from '@testing-library/react'
+import { renderToString } from 'react-dom/server'
 
+import App from '../../src/components/app'
 import Composition from '../../src/components/composition'
+import Styles from '../../src/components/styles'
 import { TreeNode } from '../../src/components/tree'
+
 import { useComponentContext } from '../../src/contexts/component'
 
 const x = 3
@@ -51,9 +54,19 @@ const tree = {
   ]
 }
 
-test('Quarantine Component', () => {
-  const { asFragment } = render(
-    <Composition getComponent={getComponent} tree={tree} quarantine />
+test('Page Component', () => {
+  const html = renderToString(
+    <Composition getComponent={getComponent} tree={tree} quarantine>
+      <html>
+        <head>
+          <title>test</title>
+          <Styles />
+        </head>
+        <body>
+          <App single-page />
+        </body>
+      </html>
+    </Composition>
   )
-  expect(asFragment()).toMatchSnapshot()
+  expect(html).toMatchSnapshot()
 })

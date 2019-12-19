@@ -6,7 +6,7 @@ const componentContext = createContext<{
   type?: string
   id: any
   props?: object
-  getContent?: (cp: ContentParams) => ContentResult
+  getContent?: (cp: ContentParams) => ContentPromise
 }>({
   type: null,
   id: null,
@@ -15,20 +15,25 @@ const componentContext = createContext<{
   getContent: () => null
 })
 
-function useComponentContext() {
+export function useComponentContext() {
   return useContext(componentContext)
 }
 
-function ComponentContext(props) {
-  const { component: Component, render } = props
+export function ComponentContext(props) {
+  const { children, component: Component, render, ...otherProps } = props
   const context = useComponentContext()
 
   if (Component) {
-    return <Component context={context} />
+    return <Component {...otherProps} context={context} />
   } else if (render) {
-    return render({ context })
+    return render({ ...otherProps, context })
+  } else if (children) {
+    return []
+      .concat(children || [])
+      .map((Child, index) => (
+        <Child key={index} {...otherProps} context={context} />
+      ))
   }
 }
 
 export default componentContext
-export { componentContext, ComponentContext, useComponentContext }

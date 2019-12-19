@@ -5,11 +5,13 @@ interface ContentParams {
 }
 
 interface ContentComponentParams extends ContentParams {
+  children?: React.ElementType | React.ElementType[]
   component?: React.ComponentType<{ content: any }>
   render?: Function
 }
 
-interface ContentResult {
-  cached: object
-  fetched: Promise<object>
+interface ContentPromise extends Promise<object> {
+  cached?: object
 }
+
+type ContentResult = ContentPromise | object

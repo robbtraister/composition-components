@@ -4,27 +4,27 @@ import React from 'react'
 
 import Error from './error'
 
-function clientQuarantine(Component) {
-  return class QuarantineComponent extends React.Component<{}, { error: any }> {
-    static displayName: string
+import { TreeNode } from '../tree'
 
-    constructor(props) {
-      super(props)
-      this.state = { error: null }
-    }
+class ClientQuarantine extends React.Component<TreeNode, { error: any }> {
+  static displayName: string
 
-    componentDidCatch(error) {
-      this.setState({ error })
-    }
+  constructor(props) {
+    super(props)
+    this.state = { error: null }
+  }
 
-    render() {
-      return this.state.error ? (
-        <Error error={this.state.error} />
-      ) : (
-        <Component {...this.props} />
-      )
-    }
+  componentDidCatch(error) {
+    this.setState({ error })
+  }
+
+  render() {
+    return this.state.error ? (
+      <Error error={this.state.error} />
+    ) : (
+      this.props.children
+    )
   }
 }
 
-export { clientQuarantine }
+export { ClientQuarantine }
