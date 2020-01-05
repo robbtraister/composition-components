@@ -1,6 +1,6 @@
 'use strict'
 
-import { Fragment } from 'React'
+import { Fragment } from 'react'
 
-export const ClientStyles = Fragment
-export default ClientStyles
+export const Styles = Fragment
+export default Styles

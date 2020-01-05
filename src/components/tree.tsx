@@ -93,8 +93,8 @@ export function Tree(treeProps: TreeProps) {
       <componentContext.Provider value={componentContextValue}>
         <Quarantine {...node}>
           <Component {...props}>
-            {[].concat(children || []).map(child => (
-              <Node key={child.id} {...child} />
+            {[].concat(children || []).map((child, index) => (
+              <Node key={child.id || index} {...child} />
             ))}
           </Component>
         </Quarantine>

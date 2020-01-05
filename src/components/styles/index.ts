@@ -1,7 +1,7 @@
 'use strict'
 
-import { ClientStyles } from './client'
-import { ServerStyles } from './server'
+import { Styles as ClientStyles } from './client'
+import { Styles as ServerStyles } from './server'
 
 import { isClient } from '../../utils'
 

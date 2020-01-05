@@ -4,12 +4,15 @@ import React, { createContext, useContext } from 'react'
 
 import { TreeNode } from '../components/tree'
 
-const compositionContext = createContext<{
+export const compositionContext = createContext<{
+  appName?: string
+  appStyles?: string
   cache?: object
   elements?: TreeNode[]
   pageContent?: object
   projectRoot?: string
   quarantine?: boolean
+  siteStyles?: string
   tree?: TreeNode
 
   getComponent?: (node) => React.ComponentType

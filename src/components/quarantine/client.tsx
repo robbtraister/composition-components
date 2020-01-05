@@ -6,7 +6,7 @@ import Error from './error'
 
 import { TreeNode } from '../tree'
 
-class ClientQuarantine extends React.Component<TreeNode, { error: any }> {
+export class Quarantine extends React.Component<TreeNode, { error: any }> {
   static displayName: string
 
   constructor(props) {
@@ -27,4 +27,4 @@ class ClientQuarantine extends React.Component<TreeNode, { error: any }> {
   }
 }
 
-export { ClientQuarantine }
+export default Quarantine

@@ -1,32 +1,38 @@
 'use strict'
 
-import fs from 'fs'
+import { promises as fsPromises } from 'fs'
 import path from 'path'
-import { promisify } from 'util'
 
 import React, { useContext } from 'react'
 
 import compositionContext from '../../contexts/composition'
 
-const readFile = promisify(fs.readFile.bind(fs))
-
-const StyledComponents = 'styled-components'
+const StyledComponents = 'composition:styled-components'
 
 interface StylesProps {
   inline?: boolean
 }
 interface StyleProps {
+  id?: string
   name: string
 }
 
 const cachedFiles = {}
-function getCachedFile(filePath) {
-  cachedFiles[filePath] = cachedFiles[filePath] || readFile(filePath)
+async function getCachedFile(filePath) {
+  try {
+    cachedFiles[filePath] =
+      cachedFiles[filePath] || (await fsPromises.readFile(filePath))
+  } catch (_) {}
   return cachedFiles[filePath]
 }
 
-export const ServerStyles = ({ inline, ...props }: StylesProps) => {
-  const { cache = {}, projectRoot } = useContext(compositionContext)
+export const Styles = ({ inline, ...passThroughProps }: StylesProps) => {
+  const {
+    appStyles = 'app',
+    cache = {},
+    projectRoot,
+    siteStyles = 'site'
+  } = useContext(compositionContext)
 
   const Style = inline
     ? function Style({ name }: StyleProps) {
@@ -39,7 +45,10 @@ export const ServerStyles = ({ inline, ...props }: StylesProps) => {
         )
           .then(data => {
             cache[key] = (
-              <style {...props} dangerouslySetInnerHTML={{ __html: data }} />
+              <style
+                {...passThroughProps}
+                dangerouslySetInnerHTML={{ __html: data }}
+              />
             )
           })
           .catch(() => {
@@ -47,17 +56,24 @@ export const ServerStyles = ({ inline, ...props }: StylesProps) => {
           })
         return null
       }
-    : function Style({ name }: StyleProps) {
-        return <link {...props} href={`/dist/${name}.css`} rel="stylesheet" />
+    : function Style({ name, ...compositionProps }: StyleProps) {
+        return (
+          <link
+            {...compositionProps}
+            {...passThroughProps}
+            href={`/dist/${name}.css`}
+            rel="stylesheet"
+          />
+        )
       }
 
   return (
     <>
-      <Style name="site" />
-      <Style name="app" />
+      <Style name={siteStyles} id="composition-site-styles" />
+      <Style name={appStyles} id="composition-app-styles" />
       <StyledComponents />
     </>
   )
 }
 
-export default ServerStyles
+export default Styles

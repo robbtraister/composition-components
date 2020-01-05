@@ -1,7 +1,7 @@
 'use strict'
 
-import { ClientApp } from './client'
-import { ServerApp } from './server'
+import { App as ClientApp } from './client'
+import { App as ServerApp } from './server'
 
 import { isClient } from '../../utils'
 

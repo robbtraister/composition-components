@@ -1,5 +1,5 @@
 declare namespace JSX {
   interface IntrinsicElements {
-    'styled-components': any
+    'composition:styled-components': any
   }
 }

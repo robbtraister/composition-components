@@ -1,6 +1,6 @@
 'use strict'
 
-import { Fragment } from 'React'
+import { Fragment } from 'react'
 
-export const ClientApp = Fragment
-export default ClientApp
+export const App = Fragment
+export default App

@@ -7,7 +7,7 @@ import Error from './error'
 
 import { TreeNode } from '../tree'
 
-function ServerQuarantine({ children }: TreeNode) {
+export function Quarantine({ children }: TreeNode) {
   try {
     const element = <>{children}</>
     ReactDOM.renderToString(element)
@@ -17,4 +17,4 @@ function ServerQuarantine({ children }: TreeNode) {
   }
 }
 
-export { ServerQuarantine }
+export default Quarantine

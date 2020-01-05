@@ -70,3 +70,24 @@ test('Page Component', () => {
   )
   expect(html).toMatchSnapshot()
 })
+
+test('Inline Styles', () => {
+  const html = renderToString(
+    <Composition
+      getComponent={getComponent}
+      tree={tree}
+      projectRoot=""
+      quarantine>
+      <html>
+        <head>
+          <title>test</title>
+          <Styles inline />
+        </head>
+        <body>
+          <App single-page />
+        </body>
+      </html>
+    </Composition>
+  )
+  expect(html).toMatchSnapshot()
+})

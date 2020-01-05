@@ -2,18 +2,18 @@
   "name": "@composition/components",
   "version": "0.0.0",
   "description": "",
-  "main": "./dist",
+  "main": "./src/index.ts",
   "exports": {
-    ".": "./dist",
-    "./components": "./dist/components",
-    "./contexts": "./dist/contexts"
+    ".": "./src/index.ts",
+    "./components": "./src/components/index.ts",
+    "./contexts": "./src/contexts/index.ts"
   },
   "scripts": {
     "build": "npm run clean && babel src/ --out-dir dist/ --extensions=.cjs,.cjsx,.js,.jsx,.mjs,.mjsx,.ts,.tsx --ignore=\"**/*.d.ts\" --source-maps",
     "clean": "rm -rf ./dist/*",
     "lint:ts": "eslint --ext .cjs,.cjsx,.js,.jsx,.mjs,.mjsx,.ts,.tsx .",
     "lint": "npm run lint:ts -- --fix",
-    "test": "npm audit && tsc --noEmit && npm run lint:ts && jest",
+    "test": "npm audit && tsc --noEmit && npm run lint:ts && jest --coverage",
     "prepublishOnly": "npm run test && npm run build",
     "preversion": "npm run test",
     "postversion": "git push && git push --tags",

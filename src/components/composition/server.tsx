@@ -10,10 +10,11 @@ import { TreeProps } from '../tree'
 interface CompositionProps extends TreeProps {
   children?: React.ReactNode
   location?: string
+  projectRoot?: string
   routerContext?: { url?: string }
 }
 
-export function ServerComposition(props: CompositionProps) {
+export function Composition(props: CompositionProps) {
   const { children, location, routerContext = {}, ...contextValue } = props
   return (
     <StaticRouter location={location} context={routerContext}>
@@ -22,4 +23,4 @@ export function ServerComposition(props: CompositionProps) {
   )
 }
 
-export default ServerComposition
+export default Composition

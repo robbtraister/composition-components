@@ -3,6 +3,7 @@
 import React from 'react'
 
 import Tree from '../tree'
+import { useCompositionContext } from '../../contexts'
 
 const polyfills = {
   assign: '(window.Object&&window.Object.assign)',
@@ -27,7 +28,8 @@ interface ServerAppProps {
   'single-page'?: boolean
 }
 
-export function ServerApp(props: ServerAppProps) {
+export function App(props: ServerAppProps) {
+  const { appName = 'app' } = useCompositionContext()
   const {
     id = 'composition-app',
     static: isStatic = false,
@@ -50,7 +52,9 @@ export function ServerApp(props: ServerAppProps) {
               )}))document.write('<script type="text/javascript" src="/dist/polyfills.js" defer=""><\\/script>');`
             }}
           />
-          <Script name="app" />
+          <Script name="runtime" />
+          <Script name="engine" />
+          <Script name={appName} />
         </>
       )}
       <div id={id}>
@@ -68,4 +72,4 @@ export function ServerApp(props: ServerAppProps) {
   )
 }
 
-export default ServerApp
+export default App

@@ -1,7 +1,7 @@
 'use strict'
 
-import { ClientComposition } from './client'
-import { ServerComposition } from './server'
+import { Composition as ClientComposition } from './client'
+import { Composition as ServerComposition } from './server'
 
 import { isClient } from '../../utils'
 

@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter, useLocation } from 'react-router'
+import { BrowserRouter, useLocation } from 'react-router-dom'
 
 import { Common } from './common'
 
@@ -53,7 +53,7 @@ function LocationWatcher(props: ClientCompositionProps) {
   )
 }
 
-export function ClientComposition(props: ClientCompositionProps) {
+export function Composition(props: ClientCompositionProps) {
   const { 'single-page': singlePage, resolve } = props
 
   const forceRefresh = !singlePage || !resolve
@@ -65,4 +65,4 @@ export function ClientComposition(props: ClientCompositionProps) {
   )
 }
 
-export default ClientComposition
+export default Composition
