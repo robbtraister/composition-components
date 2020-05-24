@@ -3,7 +3,6 @@
     "baseUrl": "./",
     "declaration": true,
     "esModuleInterop": true,
-    "importHelpers": true,
     "jsx": "react",
     "moduleResolution": "node",
     "noUnusedLocals": true,
