@@ -11,6 +11,8 @@ import { useRootContext } from '../../contexts/root'
 
 export const StyledComponents = 'composition:styled-components'
 
+const placeholder = `<${StyledComponents}></${StyledComponents}>`
+
 export interface StylesProps extends Composition.RenderProps<{}> {
   amp?: boolean
   inline?: boolean
@@ -25,8 +27,7 @@ export const useStyles = () => {
     name: path.join('build', 'dist', `${appStyles}.css`)
   })
 
-  return `${formatStylesContent || ''}${appStylesContent ||
-    ''}<${StyledComponents}></${StyledComponents}>`
+  return `${formatStylesContent || ''}${appStylesContent || ''}${placeholder}`
 }
 
 const StyleTag = ({ styles, ...props }: Composition.StylesStruct) => (
