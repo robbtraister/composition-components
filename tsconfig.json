@@ -4,12 +4,13 @@
     "declaration": true,
     "esModuleInterop": true,
     "jsx": "react",
+    "moduleResolution": "node",
     "noUnusedLocals": true,
     "outDir": "dist",
     "resolveJsonModule": true,
     "rootDir": "./src",
     "sourceMap": true,
-    "target": "ES3"
+    "target": "ES6"
   },
   "exclude": [
     "coverage",
