@@ -3,6 +3,7 @@
   "version": "0.0.1-beta.5",
   "description": "",
   "main": "./dist",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist",
     "./components": "./dist/components",
@@ -24,8 +25,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "debug": "^4.1.1",
-    "tslib": "^1.13.0"
+    "debug": "^4.1.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",

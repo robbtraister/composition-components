@@ -72,8 +72,6 @@ declare namespace Composition {
     filter?: object
   }
 
-  type ContentResult = CachedPromise | object
-
   interface ContentStruct {
     content: any
   }
