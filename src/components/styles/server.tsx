@@ -4,7 +4,7 @@ import path from 'path'
 
 import React from 'react'
 
-import { render } from '../render'
+import { render, RenderProps } from '../render'
 import { useResource } from '../resource'
 
 import { useRootContext } from '../../contexts/root'
@@ -13,7 +13,7 @@ export const StyledComponents = 'composition:styled-components'
 
 const placeholder = `<${StyledComponents}></${StyledComponents}>`
 
-export interface StylesProps extends Composition.RenderProps<{}> {
+export interface StylesProps extends RenderProps<{}> {
   amp?: boolean
   inline?: boolean
 }
@@ -30,7 +30,7 @@ export const useStyles = () => {
   return `${formatStylesContent || ''}${appStylesContent || ''}${placeholder}`
 }
 
-const StyleTag = ({ styles, ...props }: Composition.StylesStruct) => (
+const StyleTag = ({ styles, ...props }: { styles: string }) => (
   <style {...props} dangerouslySetInnerHTML={{ __html: styles }} />
 )
 

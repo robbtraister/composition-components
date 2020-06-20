@@ -2,7 +2,18 @@
 
 import React from 'react'
 
-export function render(props: Composition.RenderableProps<any, any>) {
+export interface RenderProps<T> {
+  children?: React.ReactNode
+  component?: React.ComponentType<T>
+  render?: (t: T) => React.ReactElement | React.ReactElement[] | null
+}
+
+export type RenderableProps<
+  InputProps extends object,
+  PassthroughProps extends object
+> = InputProps & RenderProps<PassthroughProps>
+
+export function render(props: RenderableProps<any, any>) {
   const { children, component: Component, render, ...passThroughProps } = props
 
   if (Component) {

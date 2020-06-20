@@ -9,10 +9,27 @@ import { withTimer } from './timer'
 import { getDescendants } from './utils'
 
 import rootContext from '../contexts/root'
+import { NodeProps } from '../types'
 
 const debug = debugModule('composition:components:tree')
 
-export const Tree = memo(function Tree(treeProps: Composition.TreeProps) {
+export type ComponentFetcher = (type: string) => React.ComponentType
+
+export interface Resolution {
+  title?: string
+  meta?: object
+  template?: string
+  tree?: NodeProps
+  pageContent?: object
+}
+
+export interface TreeProps extends Resolution {
+  quarantine?: boolean
+
+  getComponent?: ComponentFetcher
+}
+
+export const Tree = memo(function Tree(treeProps: TreeProps) {
   const [componentCache] = useState({})
   const context = useContext(rootContext)
 

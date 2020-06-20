@@ -6,9 +6,11 @@ import { render } from '../render'
 
 import { useRootContext } from '../../contexts/root'
 
-const DefaultTitle = ({ title }: Composition.TitleStruct) => (
-  <title>{title}</title>
-)
+export interface TitleProps {
+  title: string
+}
+
+const DefaultTitle = ({ title }: { title: string }) => <title>{title}</title>
 
 export const Title = props => {
   const { title } = useRootContext()

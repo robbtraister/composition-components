@@ -2,9 +2,10 @@
 
 import { createContext, useContext } from 'react'
 
-import { render } from '../components/render'
+import { render, RenderableProps } from '../components/render'
+import { RootProps } from '../components/root/types'
 
-const rootContext = createContext<Composition.RootProps>({})
+const rootContext = createContext<RootProps>({})
 
 export function useRootContext() {
   const {
@@ -17,9 +18,7 @@ export function useRootContext() {
   return consumableContext
 }
 
-export function RootContext(
-  props: Composition.RenderableProps<{}, Composition.RootProps>
-) {
+export function RootContext(props: RenderableProps<{}, RootProps>) {
   const context = useRootContext()
   return render({ ...props, ...context })
 }

@@ -2,17 +2,22 @@
 
 import React from 'react'
 
-import { render } from '../render'
+import { render, RenderProps } from '../render'
 
 import { useRootContext } from '../../contexts/root'
 
-export interface MetaProps extends Composition.RenderProps<{}> {
+export interface MetaProps extends RenderProps<{}> {
   name?: string
+}
+
+export interface MetaStruct {
+  name: string
+  content: string
 }
 
 const isCharset = name => /^charset$/i.test(name)
 
-const DefaultMeta = ({ name, content }: Composition.MetaStruct) =>
+const DefaultMeta = ({ name, content }: MetaStruct) =>
   isCharset(name) ? (
     <meta charSet={content} />
   ) : (

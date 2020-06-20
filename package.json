@@ -12,7 +12,7 @@
   "scripts": {
     "prebuild": "npm run clean",
     "build": "tsc",
-    "postbuild": "cd src && for p in $(find . -name package.json); do cp $p ../dist/$p; done && cp -R ./definitions ../dist/",
+    "postbuild": "cd src && for p in $(find . -name package.json); do cp $p ../dist/$p; done",
     "clean": "rm -rf ./dist/*",
     "lint:ts": "eslint --ext .cjs,.cjsx,.js,.jsx,.mjs,.mjsx,.ts,.tsx .",
     "lint": "npm run lint:ts -- --fix",

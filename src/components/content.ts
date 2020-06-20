@@ -2,12 +2,27 @@
 
 import { useContext, useState } from 'react'
 
-import { render } from './render'
+import { render, RenderableProps } from './render'
 
 import componentContext from '../contexts/component'
 import rootContext from '../contexts/root'
 
-export function useContent(params: Composition.ContentParams) {
+export interface CachedPromise extends Promise<any> {
+  value?: any
+  expires?: number
+}
+
+export interface ContentParams {
+  source: string
+  query: object
+  filter?: object
+}
+
+export interface ContentStruct {
+  content: any
+}
+
+export function useContent(params: ContentParams) {
   const { source, query } = params
   const key = JSON.stringify({ content: { source, query } })
 
@@ -24,9 +39,7 @@ export function useContent(params: Composition.ContentParams) {
   const [content, setContent] = useState(value)
 
   if (!(key in cache) || expires < Date.now()) {
-    const contentPromise: Composition.CachedPromise = Promise.resolve(
-      getContent(params)
-    )
+    const contentPromise: CachedPromise = Promise.resolve(getContent(params))
 
     cache[key] = Object.assign(
       contentPromise.then(value => {
@@ -44,12 +57,7 @@ export function useContent(params: Composition.ContentParams) {
   return content
 }
 
-export function Content(
-  props: Composition.RenderableProps<
-    Composition.ContentParams,
-    Composition.ContentStruct
-  >
-) {
+export function Content(props: RenderableProps<ContentParams, ContentStruct>) {
   const { source, query, filter, ...passThroughProps } = props
   const content = useContent({ source, query, filter })
 

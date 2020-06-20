@@ -8,6 +8,8 @@ import { getDescendants } from '../utils'
 
 import rootContext from '../../contexts/root'
 
+import { RootProps } from './types'
+
 const debug = debugModule('composition:components:context')
 
 export const CommonRoot = memo(function CommonRoot({
@@ -15,7 +17,7 @@ export const CommonRoot = memo(function CommonRoot({
   value
 }: {
   children?: React.ReactNode
-  value: Composition.RootProps
+  value: RootProps
 }) {
   const context = {
     ...value,

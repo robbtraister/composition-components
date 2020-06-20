@@ -7,10 +7,11 @@ import { Quarantine } from './quarantine'
 
 import componentContext from '../contexts/component'
 import rootContext from '../contexts/root'
+import { NodeProps } from '../types'
 
 const debug = debugModule('composition:components:node')
 
-export const Node = memo(function Node(node: Composition.TreeNode) {
+export const Node = memo(function Node(node: NodeProps) {
   const { props = {}, children = [], type, id, Component } = node
   const { getContent, format } = useContext(rootContext)
 

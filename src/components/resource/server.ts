@@ -2,14 +2,20 @@
 
 import { useContext } from 'react'
 
-import render from '../render'
+import { render, RenderableProps } from '../render'
 
 import rootContext from '../../contexts/root'
 
-export function useResource({
-  name,
-  encoding = 'utf8'
-}: Composition.ResourceParams) {
+export interface ResourceParams {
+  name: string
+  encoding?: string
+}
+
+export interface ResourceStruct {
+  resource: any
+}
+
+export function useResource({ name, encoding = 'utf8' }: ResourceParams) {
   const { cache = {}, getResource } = useContext(rootContext)
 
   const key = JSON.stringify({ resource: name })
@@ -31,10 +37,7 @@ export function useResource({
 }
 
 export function Resource(
-  props: Composition.RenderableProps<
-    Composition.ResourceParams,
-    Composition.ResourceStruct
-  >
+  props: RenderableProps<ResourceParams, ResourceStruct>
 ) {
   const { name, encoding, ...passThroughProps } = props
   const resource = useResource({ name, encoding })
