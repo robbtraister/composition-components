@@ -3,25 +3,16 @@
 import { createContext, useContext } from 'react'
 
 import { render, RenderableProps } from '../components/render'
-import { ContentFetcher, NodeProps } from '../types'
+import { NodeProps } from '../types'
 
-export type ComponentProps = NodeProps & {
-  getContent: ContentFetcher
-}
-
-const componentContext = createContext<ComponentProps>({
+const componentContext = createContext<NodeProps>({
   type: null,
   id: null,
-  props: {},
-  customContent: {},
-
-  getContent: () => null
+  props: {}
 })
 
 export function useComponentContext() {
-  const { customContent, getContent, ...consumableContext } = useContext(
-    componentContext
-  )
+  const { customContent, ...consumableContext } = useContext(componentContext)
   return consumableContext
 }
 

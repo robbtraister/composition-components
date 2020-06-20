@@ -1,6 +1,7 @@
 'use strict'
 
-import { useContext, useState } from 'react'
+import { useContext, useState, useMemo } from 'react'
+import merge from 'lodash.merge'
 
 import { render, RenderableProps } from './render'
 
@@ -18,14 +19,14 @@ export interface ContentStruct {
   content: any
 }
 
-export const getContentKey = ({ source, query }: ContentParams) =>
+const getContentKey = ({ source, query }: ContentParams) =>
   JSON.stringify({ content: { source, query } })
 
 export function useContent(params: ContentParams) {
   const key = getContentKey(params)
 
-  const { cache = {} } = useContext(rootContext)
-  const { getContent } = useContext(componentContext)
+  const { cache = {}, getContent } = useContext(rootContext)
+  const { customContent = {} } = useContext(componentContext)
 
   /**
    * cache entry will always be some combination of the following (possibly both):
@@ -52,7 +53,10 @@ export function useContent(params: ContentParams) {
     )
   }
 
-  return content
+  return useMemo(() => merge({}, content, customContent[key]), [
+    content,
+    customContent[key]
+  ])
 }
 
 export function Content(props: RenderableProps<ContentParams, ContentStruct>) {
