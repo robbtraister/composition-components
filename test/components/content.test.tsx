@@ -60,14 +60,14 @@ const tree = {
   }
 }
 
-async function testContentComponent(componentType) {
+async function testContentComponent(componentType, customContent = {}) {
   const cache = {}
 
   const result = render(
     <Root
       getComponent={getComponent}
       getContent={getContent}
-      tree={{ ...tree, type: componentType }}
+      tree={{ ...tree, type: componentType, customContent }}
       cache={cache}
     />
   )
@@ -95,6 +95,46 @@ describe('Content', () => {
 
   test('Content Render', async () => {
     const { asFragment } = await testContentComponent('content-render')
+    expect(asFragment()).toMatchSnapshot()
+  })
+})
+
+describe('Custom Content', () => {
+  const customContent = {
+    '{"content":{"source":"source","query":{"data":"data"}}}': {
+      data: 'custom content'
+    }
+  }
+
+  test('Content Children', async () => {
+    const { asFragment } = await testContentComponent(
+      'content-children',
+      customContent
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  test('Content Component', async () => {
+    const { asFragment } = await testContentComponent(
+      'content-component',
+      customContent
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  test('Content Hook', async () => {
+    const { asFragment } = await testContentComponent(
+      'content-hook',
+      customContent
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  test('Content Render', async () => {
+    const { asFragment } = await testContentComponent(
+      'content-render',
+      customContent
+    )
     expect(asFragment()).toMatchSnapshot()
   })
 })

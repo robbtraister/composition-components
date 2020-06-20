@@ -31,3 +31,35 @@ exports[`Content Content Render 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`Custom Content Content Children 1`] = `
+<DocumentFragment>
+  <div>
+    custom content
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Custom Content Content Component 1`] = `
+<DocumentFragment>
+  <div>
+    custom content
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Custom Content Content Hook 1`] = `
+<DocumentFragment>
+  <div>
+    custom content
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Custom Content Content Render 1`] = `
+<DocumentFragment>
+  <div>
+    custom content
+  </div>
+</DocumentFragment>
+`;

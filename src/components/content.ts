@@ -7,24 +7,22 @@ import { render, RenderableProps } from './render'
 import componentContext from '../contexts/component'
 import rootContext from '../contexts/root'
 
-export interface CachedPromise extends Promise<any> {
-  value?: any
-  expires?: number
-}
+import { ContentParams } from '../types'
 
-export interface ContentParams {
-  source: string
-  query: object
-  filter?: object
+export interface CachedPromise<V extends object = object> extends Promise<V> {
+  value?: V
+  expires?: number
 }
 
 export interface ContentStruct {
   content: any
 }
 
+export const getContentKey = ({ source, query }: ContentParams) =>
+  JSON.stringify({ content: { source, query } })
+
 export function useContent(params: ContentParams) {
-  const { source, query } = params
-  const key = JSON.stringify({ content: { source, query } })
+  const key = getContentKey(params)
 
   const { cache = {} } = useContext(rootContext)
   const { getContent } = useContext(componentContext)

@@ -10,7 +10,7 @@ export interface TitleProps {
   title: string
 }
 
-const DefaultTitle = ({ title }: { title: string }) => <title>{title}</title>
+const DefaultTitle = ({ title }: TitleProps) => <title>{title}</title>
 
 export const Title = props => {
   const { title } = useRootContext()
