@@ -2,13 +2,12 @@
   "name": "@composition/components",
   "version": "0.1.0-beta.6",
   "description": "",
-  "main": "./dist/index.js",
+  "main": "./dist/",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./components": "./dist/components/index.js",
-    "./contexts": "./dist/contexts/index.js",
-    "./dist/": "./dist/"
+    "./dist/": "./dist/",
+    "./": "./dist/",
+    ".": "./dist/index.js"
   },
   "scripts": {
     "prebuild": "npm run clean",
